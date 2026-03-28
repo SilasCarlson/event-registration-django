@@ -1,0 +1,32 @@
+<!-- base.html: every other template extends this one to share the same layout -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Registration</title>
+    <style>
+        body { font-family: sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; }
+        nav a { margin-right: 10px; }
+        .messages { padding: 10px; margin: 10px 0; }
+        .messages .success { color: green; }
+        .messages .error { color: red; }
+    </style>
+</head>
+<body>
+    <nav><a href="/">All Events</a></nav>
+    <hr>
+
+    <!-- Display any success or error messages set by the view -->
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <!-- Child templates fill in this block with their own content -->
+    {% block content %}{% endblock %}
+</body>
+</html>

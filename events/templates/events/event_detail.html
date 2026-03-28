@@ -1,0 +1,43 @@
+<!-- event_detail.html: shows one event and the registration form -->
+{% extends "events/base.html" %}
+{% block content %}
+<h1>{{ event.name }}</h1>
+<p>{{ event.date }}</p>
+<p>{{ event.location }}</p>
+<p>{{ event.description }}</p>
+<p>{{ event.spots_left }} / {{ event.capacity }} spots remaining</p>
+
+<hr>
+
+<!-- Hide the form entirely if the event is full -->
+{% if event.is_full %}
+    <p style="color:red;"><strong>This event is full.</strong></p>
+{% else %}
+    <h2>Register</h2>
+    <!-- POST submits to the same URL; the view handles it -->
+    <form method="post">
+        {% csrf_token %}  <!-- required by Django to prevent cross-site request forgery -->
+        <p>
+            <label>Name<br>
+            {{ form.name }}</label>
+        </p>
+        <p>
+            <label>Email<br>
+            {{ form.email }}</label>
+        </p>
+        <button type="submit">Sign Up</button>
+    </form>
+{% endif %}
+
+<hr>
+
+<!-- List everyone who has registered, pulled via the related_name on Registration -->
+<h3>Registrations ({{ event.registrations.count }})</h3>
+<ul>
+    {% for reg in event.registrations.all %}
+        <li>{{ reg.name }} -- {{ reg.email }}</li>
+    {% empty %}
+        <li>No one registered yet.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

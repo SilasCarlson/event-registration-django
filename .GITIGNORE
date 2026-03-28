@@ -1,0 +1,26 @@
+# Python
+*.pyc
+__pycache__
+*~
+*.log
+.coverage
+.Python
+env/
+venv/
+ENV/
+venv.bak/
+env.bak/
+
+# Django specific
+*.mo
+local_settings.py
+db.sqlite3
+/media/
+/static/
+
+# IDE/Editor files
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
